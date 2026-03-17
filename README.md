@@ -118,33 +118,33 @@ Hey! My name is Mahir, and I am a Business Administration (BUAN) sophomore based
 
 ## Certificates
 
-*Actively working on building certifications. Placeholders below for planned and in-progress certificates.*
+*Actively working on building certifications. Placeholders below for planned and in-progress certificates :000*
 
-📜 [Google Data Analytics Professional Certificate]() — Coursera *(In Progress)*
+📜 [Google Data Analytics Professional Certificate]() — Coursera 
 
-📜 [IBM Data Analysis with Python]() — Coursera *(Planned)*
+📜 [IBM Data Analysis with Python]() — Coursera 
 
-📜 [Mastering Data Analysis with Pandas]() — Coursera *(Planned)*
+📜 [Mastering Data Analysis with Pandas]() — Coursera 
 
-📜 [Python Data Analysis]() — LinkedIn Learning *(Planned)*
+📜 [Python Data Analysis]() — LinkedIn Learning 
 
-📜 [Excel Data Analysis]() — LinkedIn Learning *(Planned)*
+📜 [Excel Data Analysis]() — LinkedIn Learning 
 
-📜 [ETL and Data Pipelines with Shell, Airflow and Kafka]() — Coursera *(Planned)*
+📜 [ETL and Data Pipelines with Shell, Airflow and Kafka]() — Coursera 
 
-📜 [Intermediate SQL: Data Reporting and Analysis]() — LinkedIn Learning *(Planned)*
+📜 [Intermediate SQL: Data Reporting and Analysis]() — LinkedIn Learning 
 
-📜 [Prepare, Clean, Transform, and Load Data using Power BI]() — Coursera *(Planned)*
+📜 [Prepare, Clean, Transform, and Load Data using Power BI]() — Coursera 
 
-📜 [Excel: Working Together with Power Query and Power Pivot]() — LinkedIn Learning *(Planned)*
+📜 [Excel: Working Together with Power Query and Power Pivot]() — LinkedIn Learning 
 
-📜 [Business Benefits Realization Foundations]() — LinkedIn Learning *(Planned)*
+📜 [Business Benefits Realization Foundations]() — LinkedIn Learning 
 
-📜 [Business Analyst and Project Manager Collaboration]() — LinkedIn Learning *(Planned)*
+📜 [Business Analyst and Project Manager Collaboration]() — LinkedIn Learning 
 
-📜 [Business Analysis Foundations]() — LinkedIn Learning *(Planned)*
+📜 [Business Analysis Foundations]() — LinkedIn Learning 
 
-📜 [Agile Requirements Foundations]() — LinkedIn Learning *(Planned)*
+📜 [Agile Requirements Foundations]() — LinkedIn Learning 
 
 ---
 
