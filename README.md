@@ -2,7 +2,7 @@
 
 ## About Me
 
-Hey! My name is Mahir, and I am a Business Administration (BUAN) sophomore based in Dallas. I am building toward a career in analytics and this repository is where I showcase the projects I have been working on. I enjoy using data to explore things I am genuinely interested in, whether that is Premier League football, my own music listening habits, or whatever catches my attention next. Each project here reflects a different tool or technique I have been learning, from SQL and BigQuery to Python and Tableau.
+Hey! My name is Mahir, and I am a Business Analytics & Artificial Intelligence sophomore based in Dallas. I am building toward a career in analytics and this repository is where I showcase the projects I have been working on. I enjoy using data to explore things I am genuinely interested in, whether that is Premier League football, my own music listening habits, or whatever catches my attention next. Each project here reflects a different tool or technique I have been learning, from SQL and BigQuery to Python and Tableau.
 
 ## Contents
 
