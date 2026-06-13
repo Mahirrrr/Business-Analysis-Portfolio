@@ -131,7 +131,7 @@ Hey! My name is Mahir, and I am a Business Analytics & Artificial Intelligence s
 
 📜 [Excel Data Analysis]() — LinkedIn Learning
 
-📜 [ETL and Data Pipelines with Shell, Airflow and Kafka](certifications/ETL%20and%20Data%20Pipelines%20with%20Shell%2C%20Airflow%20and%20Kaf....pdf) — Coursera
+📜 [ETL and Data Pipelines with Shell, Airflow and Kafka](certifications/ETL%20and%20Data%20Pipelines%20with%20Shell%2C%20Airflow%20and%20Kafka.pdf) — Coursera
 
 📜 [Intermediate SQL: Data Reporting and Analysis]() — LinkedIn Learning
 
