@@ -127,7 +127,7 @@ Hey! My name is Mahir, and I am a Business Analytics & Artificial Intelligence s
 
 📜 [Mastering Data Analysis with Pandas](certifications/Mastering%20Data%20Analysis%20with%20Pandas.pdf) — Coursera
 
-📜 [Python Data Analysis]() — LinkedIn Learning
+📜 [Python Data Analysis](certifications/Python%20Data%20Analysis.pdf) — LinkedIn Learning
 
 📜 [Excel Data Analysis]() — LinkedIn Learning
 
