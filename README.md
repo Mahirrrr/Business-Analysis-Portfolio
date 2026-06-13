@@ -121,32 +121,19 @@ Hey! My name is Mahir, and I am a Business Analytics & Artificial Intelligence s
 
 *Actively working on building certifications. Placeholders below for planned and in-progress certificates :000*
 
-📜 [Google Data Analytics Professional Certificate]() — Coursera 
-
-📜 [IBM Data Analysis with Python]() — Coursera 
-
-📜 [Mastering Data Analysis with Pandas]() — Coursera 
-
-📜 [Python Data Analysis]() — LinkedIn Learning 
-
-📜 [Excel Data Analysis]() — LinkedIn Learning 
-
-📜 [ETL and Data Pipelines with Shell, Airflow and Kafka]() — Coursera 
-
-📜 [Intermediate SQL: Data Reporting and Analysis]() — LinkedIn Learning 
-
-📜 [Prepare, Clean, Transform, and Load Data using Power BI]() — Coursera 
-
-📜 [Excel: Working Together with Power Query and Power Pivot]() — LinkedIn Learning 
-
-📜 [Business Benefits Realization Foundations]() — LinkedIn Learning 
-
-📜 [Business Analyst and Project Manager Collaboration]() — LinkedIn Learning 
-
-📜 [Business Analysis Foundations]() — LinkedIn Learning 
-
-📜 [Agile Requirements Foundations]() — LinkedIn Learning 
-
+📜 [Google Data Analytics Professional Certificate](certifications/Foundations-%20Data%2C%20Data%2C%20Everywhere.pdf) — Coursera
+📜 [IBM Data Analysis with Python](certifications/Introduction%20to%20Data%20Analytics.pdf) — Coursera
+📜 [Mastering Data Analysis with Pandas](certifications/Mastering%20Data%20Analysis%20with%20Pandas.pdf) — Coursera
+📜 [Python Data Analysis]() — LinkedIn Learning
+📜 [Excel Data Analysis](certifications/Introduction%20to%20Data%20Analysis%20using%20Microsoft%20Exce....pdf) — LinkedIn Learning
+📜 [ETL and Data Pipelines with Shell, Airflow and Kafka](certifications/ETL%20and%20Data%20Pipelines%20with%20Shell%2C%20Airflow%20and%20Kaf....pdf) — Coursera
+📜 [Intermediate SQL: Data Reporting and Analysis]() — LinkedIn Learning
+📜 [Prepare, Clean, Transform, and Load Data using Power BI](certifications/Extract%2C%20Transform%20and%20Load%20Data%20in%20Power%20BI.pdf) — Coursera
+📜 [Excel: Working Together with Power Query and Power Pivot]() — LinkedIn Learning
+📜 [Business Benefits Realization Foundations]() — LinkedIn Learning
+📜 [Business Analyst and Project Manager Collaboration]() — LinkedIn Learning
+📜 [Business Analysis Foundations]() — LinkedIn Learning
+📜 [Agile Requirements Foundations]() — LinkedIn Learning
 ---
 
 ## Skills
