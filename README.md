@@ -133,6 +133,20 @@ Hey! My name is Mahir, and I am a Business Analytics & Artificial Intelligence s
 
 📜 [ETL and Data Pipelines with Shell, Airflow and Kafka](certifications/ETL%20and%20Data%20Pipelines%20with%20Shell%2C%20Airflow%20and%20Kaf....pdf) — Coursera
 
+📜 [Intermediate SQL: Data Reporting and Analysis]() — LinkedIn Learning
+
+📜 [Prepare, Clean, Transform, and Load Data using Power BI](certifications/Extract%2C%20Transform%20and%20Load%20Data%20in%20Power%20BI.pdf) — Coursera
+
+📜 [Excel: Working Together with Power Query and Power Pivot]() — LinkedIn Learning
+
+📜 [Business Benefits Realization Foundations]() — LinkedIn Learning
+
+📜 [Business Analyst and Project Manager Collaboration]() — LinkedIn Learning
+
+📜 [Business Analysis Foundations]() — LinkedIn Learning
+
+📜 [Agile Requirements Foundations]() — LinkedIn Learning
+
 ---
 
 ## Skills
