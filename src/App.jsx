@@ -13,12 +13,45 @@ const NAV_LINKS = [
 function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeHref, setActiveHref] = useState(NAV_LINKS[0][1]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.7);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = NAV_LINKS.map(([, href]) => document.querySelector(href)).filter(Boolean);
+    if (!sections.length) return;
+
+    const NAV_OFFSET = 120;
+    let raf = 0;
+
+    const updateActive = () => {
+      raf = 0;
+      let current = sections[0];
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= NAV_OFFSET) {
+          current = section;
+        }
+      }
+      setActiveHref(`#${current.id}`);
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(updateActive);
+    };
+
+    updateActive();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
@@ -36,8 +69,16 @@ function Nav() {
         <span />
       </button>
       <nav className={`nav__links${open ? ' nav__links--open' : ''}`}>
-        {NAV_LINKS.map(([label, href], i) => (
-          <a key={href} href={href} className={i === 0 ? 'is-active' : ''} onClick={() => setOpen(false)}>
+        {NAV_LINKS.map(([label, href]) => (
+          <a
+            key={href}
+            href={href}
+            className={activeHref === href ? 'is-active' : ''}
+            onClick={() => {
+              setActiveHref(href);
+              setOpen(false);
+            }}
+          >
             {label}
           </a>
         ))}
