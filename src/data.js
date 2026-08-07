@@ -111,7 +111,6 @@ export const uniInvolvement = [
   { title: 'Product@Dallas', icon: asset('/uni/product-at-dallas.png') },
   { title: 'Financial Leadership Association', icon: asset('/uni/financial-leadership-association.jpeg') },
   { title: 'Real Estate Club', icon: asset('/uni/real-estate-club.png') },
-  { title: 'Soccer Club', icon: asset('/uni/soccer-club.png') },
 ];
 
 export const skillGroups = [
