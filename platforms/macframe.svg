@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="96 176 1008 579">
+<defs>
+<linearGradient id="paint9_linear_0_1" x1="96" y1="734" x2="1104" y2="734" gradientUnits="userSpaceOnUse">
+<stop stop-color="#0D1012"/>
+<stop offset="0.0295345" stop-color="#CAD4DB"/>
+<stop offset="0.0625" stop-color="#242729"/>
+<stop offset="0.133609" stop-color="#A3ACB1"/>
+<stop offset="0.865967" stop-color="#A3ACB1"/>
+<stop offset="0.941937" stop-color="#242729"/>
+<stop offset="0.971275" stop-color="#CAD4DB"/>
+<stop offset="0.996436" stop-color="#0D1012"/>
+</linearGradient>
+<linearGradient id="paint10_linear_0_1" x1="600" y1="743" x2="600" y2="755" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7A7F83"/>
+<stop offset="1" stop-color="#0B0B0E"/>
+</linearGradient>
+<linearGradient id="paint11_linear_0_1" x1="533.5" y1="733.5" x2="670.5" y2="733.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3C3C3C"/>
+<stop offset="0.317518" stop-color="#3C3C3C" stop-opacity="0"/>
+<stop offset="0.660584" stop-color="#3C3C3C" stop-opacity="0"/>
+<stop offset="1" stop-color="#444444"/>
+</linearGradient>
+</defs>
+<path d="M222 176H982C996.912 176 1009 188.088 1009 203V725C1009 726.657 1007.66 728 1006 728H198C196.343 728 195 726.657 195 725V203C195 188.088 207.088 176 222 176Z" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
+<path d="M199 202C199 189.85 208.85 180 221 180H983C995.15 180 1005 189.85 1005 202V708H199V202Z" fill="black"/>
+<path d="M96 727C96 725.895 96.8954 725 98 725H1102C1103.1 725 1104 725.895 1104 727V743H96V727Z" fill="#A3ACB1"/>
+<path d="M96 727C96 725.895 96.8954 725 98 725H1102C1103.1 725 1104 725.895 1104 727V743H96V727Z" fill="url(#paint9_linear_0_1)"/>
+<path d="M96 743H1104L1083.65 747.105C1057.61 752.355 1031.12 755 1004.57 755H193.909C164.724 755 135.627 751.806 107.137 745.475L96 743Z" fill="#647279"/>
+<path d="M96 743H1104L1083.65 747.105C1057.61 752.355 1031.12 755 1004.57 755H193.909C164.724 755 135.627 751.806 107.137 745.475L96 743Z" fill="url(#paint10_linear_0_1)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M517.033 725C517.547 732.818 524.052 739 532 739H669C676.948 739 683.453 732.818 683.967 725H517.033Z" fill="#96A1A8"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M517.033 725C517.547 732.818 524.052 739 532 739H669C676.948 739 683.453 732.818 683.967 725H517.033Z" fill="url(#paint11_linear_0_1)"/>
+</svg>
