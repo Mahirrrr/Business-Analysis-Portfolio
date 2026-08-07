@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { projects, studyProjects, certificates, skillGroups, contacts } from './data.js';
+import { projects, studyProjects, certificates, featuredCertificates, uniInvolvement, skillGroups, contacts } from './data.js';
 import Cursor from './Cursor.jsx';
 import Shuffle from './Shuffle.jsx';
 import SanguineShowcase from './Sanguine.jsx';
 
 const NAV_LINKS = [
   ['Projects', '#projects'],
-  ['Experiences', '#experiences'],
   ['Certifications', '#certificates'],
   ['Uni Involvement', '#uni-involvement'],
 ];
@@ -224,12 +223,10 @@ function About() {
 }
 
 function ProjectCard({ project }) {
-  const isSoon = project.status === 'soon';
   return (
-    <article className={`card${isSoon ? ' card--soon' : ''}`}>
+    <article className="card">
       <div className="card__head">
         <h3>{project.title}</h3>
-        {isSoon && <span className="badge">Coming Soon</span>}
       </div>
       <p>{project.description}</p>
       <div className="tags">
@@ -256,9 +253,8 @@ function StudyCard({ item }) {
     <article className="card card--study">
       <div className="card__head">
         <h3>
-          {item.course} — {item.title}
+          {item.course}: {item.title}
         </h3>
-        <span className="badge badge--progress">{item.status}</span>
       </div>
       <p>{item.description}</p>
       <div className="tags">
@@ -292,38 +288,48 @@ function Projects() {
   );
 }
 
-function Experiences() {
+function FeaturedCertCard({ cert }) {
   return (
-    <section className="section" id="experiences">
-      <h2 className="section__title">Experiences</h2>
-      <p className="section__note">
-        This section is a placeholder — work experience, internships, and roles are coming soon.
-      </p>
-    </section>
+    <div className="cert-featured">
+      <img className="cert-featured__badge" src={cert.badge} alt={`${cert.title} badge`} />
+      <div className="cert-featured__body">
+        <span className="cert-featured__issuer">{cert.issuer}</span>
+        <h3 className="cert-featured__title">{cert.title}</h3>
+        <a className="link cert-view" href={cert.link} target="_blank" rel="noreferrer">
+          View Credential <span className="cert-view__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function CertRow({ cert }) {
+  return (
+    <div className="cert-row">
+      <img className="cert-row__icon" src={cert.icon} alt={`${cert.issuer} logo`} />
+      <span className="cert-row__title">{cert.title}</span>
+      <span className="cert-row__issuer">{cert.issuer}</span>
+      <a className="link cert-view cert-row__link" href={cert.link} target="_blank" rel="noreferrer">
+        View <span className="cert-view__arrow">→</span>
+      </a>
+    </div>
   );
 }
 
 function Certificates() {
   return (
     <section className="section section--alt" id="certificates">
-      <h2 className="section__title">Certificates</h2>
-      <p className="section__note">
-        Actively working on building certifications — more in progress.
-      </p>
-      <ul className="cert-list">
-        {certificates.map((c) => (
-          <li key={c.title}>
-            {c.file ? (
-              <a href={`/certifications/${encodeURIComponent(c.file)}`} target="_blank" rel="noreferrer">
-                📜 {c.title}
-              </a>
-            ) : (
-              <span className="cert-list__pending">📜 {c.title}</span>
-            )}
-            <span className="cert-list__issuer"> — {c.issuer}</span>
-          </li>
+      <h2 className="section__title">Certifications</h2>
+      <div className="cert-featured-row">
+        {featuredCertificates.map((c) => (
+          <FeaturedCertCard cert={c} key={c.title} />
         ))}
-      </ul>
+      </div>
+      <div className="cert-list">
+        {certificates.map((c) => (
+          <CertRow cert={c} key={c.title} />
+        ))}
+      </div>
     </section>
   );
 }
@@ -332,9 +338,14 @@ function UniInvolvement() {
   return (
     <section className="section" id="uni-involvement">
       <h2 className="section__title">Uni Involvement</h2>
-      <p className="section__note">
-        This section is a placeholder — clubs, organizations, and campus involvement are coming soon.
-      </p>
+      <div className="uni-list">
+        {uniInvolvement.map((u) => (
+          <div className="uni-row" key={u.title}>
+            <img className="uni-row__icon" src={u.icon} alt={`${u.title} logo`} />
+            <span className="uni-row__title">{u.title}</span>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
@@ -343,7 +354,6 @@ function Contact() {
   return (
     <section className="section section--alt" id="contact">
       <h2 className="section__title">Contact</h2>
-      <p className="section__note">Always happy to talk data, football, or music.</p>
       <div className="contact__links">
         <a className="btn btn--primary" href={contacts.linkedin} target="_blank" rel="noreferrer">
           LinkedIn
@@ -359,14 +369,6 @@ function Contact() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="footer">
-      <p>© {new Date().getFullYear()} Mahir Abdullah. Built with React + Vite.</p>
-    </footer>
-  );
-}
-
 export default function App() {
   return (
     <div className="page">
@@ -377,12 +379,10 @@ export default function App() {
         <About />
         <SanguineShowcase />
         <Projects />
-        <Experiences />
         <Certificates />
         <UniInvolvement />
         <Contact />
       </main>
-      <Footer />
     </div>
   );
 }

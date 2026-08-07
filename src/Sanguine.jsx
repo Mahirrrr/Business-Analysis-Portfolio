@@ -164,6 +164,7 @@ const PAGES = [
     eyebrow: 'SANGUINE · 01',
     banner: 'Incoming project: Sanguine',
     heading: 'A music app built for the future.',
+    credit: 'By Mahir Abdullah and Ajmain Zahin',
     image: { id: 'BX3WFzL', alt: 'Sanguine homepage' },
     mockup: true,
     body: [
@@ -175,7 +176,7 @@ const PAGES = [
   {
     eyebrow: 'SANGUINE · 02',
     heading: 'Every album, as a record.',
-    image: { id: 'F79rAH0', alt: 'Sanguine customisability' },
+    image: { id: 'J1CrNSN', alt: 'Sanguine customisability' },
     body: [
       "Sanguine is moving toward a full vinyl aesthetic — see the real pressing of the album you're playing, and shape the whole app around how you like to look at music.",
     ],
@@ -321,7 +322,10 @@ export default function SanguineShowcase() {
 
               <div className={`sanguine__textblock${p.platforms ? ' sanguine__textblock--final' : ''}`}>
                 {p.banner && <p className="sanguine__banner">{p.banner}</p>}
-                <p className="sanguine__eyebrow">{p.eyebrow}</p>
+                <p className="sanguine__eyebrow">
+                  {p.eyebrow}
+                  {p.credit && <span className="sanguine__credit"> · {p.credit}</span>}
+                </p>
                 <h2 className="sanguine__heading">{p.heading}</h2>
 
                 {p.body && (
