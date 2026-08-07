@@ -189,12 +189,25 @@ html.has-cursor-dot * {
     padding: 1rem clamp(1.5rem, 5vw, 4rem);
     gap: 1rem;
     display: none;
+    mix-blend-mode: normal;
+    isolation: isolate;
   }
   .nav__links a {
     color: var(--ink);
   }
   .nav__links--open {
     display: flex;
+  }
+  .nav--menu-open {
+    mix-blend-mode: normal !important;
+    background: var(--paper);
+  }
+  .nav--menu-open .nav__brand,
+  .nav--menu-open .nav__toggle span {
+    color: var(--ink);
+  }
+  .nav--menu-open .nav__toggle span {
+    background: var(--ink);
   }
 }
 

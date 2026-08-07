@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: '/Business-Analysis-Portfolio/',
+  base: command === 'build' ? '/Business-Analysis-Portfolio/' : '/',
   server: {
     port: 5174,
   },
-});
+}));

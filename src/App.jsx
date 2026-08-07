@@ -81,7 +81,7 @@ function Nav() {
   }, []);
 
   return (
-    <header className="nav" data-theme={theme}>
+    <header className={`nav${open ? ' nav--menu-open' : ''}`} data-theme={theme}>
       <a className="nav__brand" href="#top">
         Mahir Abdullah
       </a>
@@ -145,12 +145,15 @@ function Hero() {
     <section className="hero" id="top" data-theme="dark" ref={heroRef}>
       <video
         className="hero__bg"
-        src={asset('/video/hero-bg.webm')}
         autoPlay
         muted
         loop
         playsInline
-      />
+        poster={asset('/video/hero-bg-poster.jpg')}
+      >
+        <source src={asset('/video/hero-bg.mp4')} type="video/mp4" />
+        <source src={asset('/video/hero-bg.webm')} type="video/webm" />
+      </video>
       <div className="hero__scrim" />
       <div className="hero__content">
         <p className="hero__eyebrow" data-glow="Business Analytics & AI · Dallas, TX">
