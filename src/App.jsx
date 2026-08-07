@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { projects, studyProjects, certificates, skillGroups, contacts } from './data.js';
-import BauhausBackground from './BauhausBackground.jsx';
+import Cursor from './Cursor.jsx';
 import Shuffle from './Shuffle.jsx';
+import SanguineShowcase from './Sanguine.jsx';
 
 const NAV_LINKS = [
   ['Projects', '#projects'],
@@ -12,14 +13,39 @@ const NAV_LINKS = [
 
 function Nav() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState('dark');
   const [activeHref, setActiveHref] = useState(NAV_LINKS[0][1]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.7);
-    onScroll();
+    const sections = [...document.querySelectorAll('main > section')];
+    if (!sections.length) return;
+
+    const NAV_OFFSET = 80;
+    let raf = 0;
+
+    const updateTheme = () => {
+      raf = 0;
+      let current = sections[0];
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= NAV_OFFSET) {
+          current = section;
+        }
+      }
+      setTheme(current.dataset.theme === 'dark' ? 'dark' : 'light');
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(updateTheme);
+    };
+
+    updateTheme();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   useEffect(() => {
@@ -55,7 +81,7 @@ function Nav() {
   }, []);
 
   return (
-    <header className={`nav${scrolled ? ' nav--solid' : ''}`}>
+    <header className="nav" data-theme={theme}>
       <a className="nav__brand" href="#top">
         Mahir Abdullah
       </a>
@@ -88,24 +114,77 @@ function Nav() {
 }
 
 function Hero() {
+  const heroRef = useRef(null);
+
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    let raf = 0;
+
+    const update = () => {
+      raf = 0;
+      const progress = Math.min(1, Math.max(0, window.scrollY / window.innerHeight));
+      el.style.setProperty('--hero-progress', progress.toFixed(4));
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
-    <section className="hero" id="top">
-      <BauhausBackground className="hero__bg" />
+    <section className="hero" id="top" data-theme="dark" ref={heroRef}>
+      <video
+        className="hero__bg"
+        src="/video/hero-bg.webm"
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+      <div className="hero__scrim" />
       <div className="hero__content">
-        <p className="hero__eyebrow">Business Analytics &amp; AI · Dallas, TX</p>
-        <Shuffle
-          text="MAHIR ABDULLAH"
-          tag="h1"
-          className="hero__name"
-          shuffleDirection="right"
-          duration={0.4}
-          shuffleTimes={2}
-          animationMode="evenodd"
-          stagger={0.035}
-          threshold={0.2}
-          triggerOnce
-        />
-        <p className="hero__sub">
+        <p className="hero__eyebrow" data-glow="Business Analytics & AI · Dallas, TX">
+          Business Analytics &amp; AI · Dallas, TX
+        </p>
+        <h1 className="hero__name">
+          <span className="hero__name-line" data-glow="MAHIR">
+            <Shuffle
+              text="MAHIR"
+              tag="span"
+              shuffleDirection="right"
+              duration={0.4}
+              shuffleTimes={2}
+              animationMode="evenodd"
+              stagger={0.035}
+              threshold={0.2}
+              triggerOnce
+            />
+          </span>
+          <span className="hero__name-line" data-glow="ABDULLAH">
+            <Shuffle
+              text="ABDULLAH"
+              tag="span"
+              shuffleDirection="right"
+              duration={0.4}
+              shuffleTimes={2}
+              animationMode="evenodd"
+              stagger={0.035}
+              threshold={0.2}
+              triggerOnce
+            />
+          </span>
+        </h1>
+        <p className="hero__sub" data-glow="I turn messy data into stories worth telling.">
           I turn messy data into stories worth telling.
         </p>
       </div>
@@ -196,7 +275,7 @@ function StudyCard({ item }) {
 function Projects() {
   return (
     <section className="section section--alt" id="projects">
-      <h2 className="section__title">Portfolio Projects</h2>
+      <h2 className="section__title">All Projects</h2>
       <div className="grid">
         {projects.map((p) => (
           <ProjectCard project={p} key={p.title} />
@@ -291,10 +370,12 @@ function Footer() {
 export default function App() {
   return (
     <div className="page">
+      <Cursor />
       <Nav />
       <main>
         <Hero />
         <About />
+        <SanguineShowcase />
         <Projects />
         <Experiences />
         <Certificates />

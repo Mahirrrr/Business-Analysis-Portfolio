@@ -3,6 +3,13 @@ import { useEffect, useRef } from 'react';
 // Ported from the "Nested Frames" Bauhaus canvas piece: concentric rectangles
 // zoom endlessly inward via seamless log-scale rebasing. Runs contained within
 // whatever element renders this (the hero), not as a sitewide fixed layer.
+//
+// Rings are generated on the fly from an unbounded integer index `k` (via a
+// deterministic hash of k), rather than drawn from a fixed-length array whose
+// scale factor gets modulo-wrapped. A modulo wrap snaps every ring's size back
+// instantly once per period; indexing by an ever-increasing k instead means
+// the window of visible rings slides forward by exactly one ring per period,
+// so the pattern advances continuously with no reset pop.
 export default function BauhausBackground({ className }) {
   const canvasRef = useRef(null);
 
@@ -15,19 +22,18 @@ export default function BauhausBackground({ className }) {
     const BG = '#101012';
     const PAL = ['#e63329', '#1f5fbf', '#f2c20e', '#111114', '#ece8df'];
 
-    const RINGS = 14;
-    const ring = new Array(RINGS);
-    const SCALE = 1.46;
+    const RINGS = 9;
+    const SCALE = 1.85;
     const golden = 0.61803398875;
+    const mod = (n, m) => ((n % m) + m) % m;
 
-    for (let i = 0; i < RINGS; i++) {
-      ring[i] = {
-        col: PAL[i % PAL.length],
-        ar: 0.74 + 0.42 * (((i * 7) % 5) / 5),
-        ox: (((i * golden) % 1) - 0.5) * 0.22,
-        oy: (((i * golden * 2.0) % 1) - 0.5) * 0.17,
-        rot: (i % 2 ? 1 : -1) * 0.035,
-        fill: i % 2 === 0,
+    function ringAt(k) {
+      return {
+        col: PAL[mod(k, PAL.length)],
+        ar: 0.74 + 0.42 * (mod(k * 7, 5) / 5),
+        ox: (mod(k * golden, 1) - 0.5) * 0.22,
+        oy: (mod(k * golden * 2.0, 1) - 0.5) * 0.17,
+        rot: (mod(k, 2) ? 1 : -1) * 0.035,
       };
     }
 
@@ -63,16 +69,21 @@ export default function BauhausBackground({ className }) {
       ctx.restore();
     }
 
-    function composition(p) {
+    // g increases without bound (never wrapped) — that's what makes the loop
+    // seamless: the set of ring indices in view shifts by one integer every
+    // PERIOD instead of every ring's scale snapping back to its start value.
+    function composition(g) {
       ctx.fillStyle = BG;
       ctx.fillRect(0, 0, W, H);
-      const grow = Math.pow(SCALE, p);
-      for (let i = RINGS - 1; i >= 0; i--) {
-        const m = Math.pow(SCALE, i - (RINGS - 1)) * grow;
-        frame(m, ring[i]);
+      const kTop = Math.floor(g) + 1;
+      for (let j = 0; j < RINGS; j++) {
+        const k = kTop - j;
+        const m = Math.pow(SCALE, k - g);
+        frame(m, ringAt(k));
       }
-      const core = ring[0];
-      const cm = Math.pow(SCALE, -(RINGS - 1)) * grow;
+      const coreK = kTop - RINGS;
+      const core = ringAt(coreK);
+      const cm = Math.pow(SCALE, coreK - g);
       const s = base * cm * 0.62;
       const fx = cx + core.ox * base * cm;
       const fy = cy + core.oy * base * cm * core.ar;
@@ -87,13 +98,12 @@ export default function BauhausBackground({ className }) {
     let running = true;
     let raf = 0;
     let t0 = 0;
-    const PERIOD = 5200;
+    const PERIOD = 16000;
 
     function loop(ts) {
       if (!running) return;
       if (!t0) t0 = ts;
-      const p = ((ts - t0) % PERIOD) / PERIOD;
-      composition(p);
+      composition((ts - t0) / PERIOD);
       raf = requestAnimationFrame(loop);
     }
 
