@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { projects, studyProjects, certificates, featuredCertificates, uniInvolvement, skillGroups, contacts } from './data.js';
+import { asset } from './asset.js';
 import Cursor from './Cursor.jsx';
 import Shuffle from './Shuffle.jsx';
 import SanguineShowcase from './Sanguine.jsx';
@@ -144,7 +145,7 @@ function Hero() {
     <section className="hero" id="top" data-theme="dark" ref={heroRef}>
       <video
         className="hero__bg"
-        src="/video/hero-bg.webm"
+        src={asset('/video/hero-bg.webm')}
         autoPlay
         muted
         loop

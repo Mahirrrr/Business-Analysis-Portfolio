@@ -1,3 +1,5 @@
+import { asset } from './asset.js';
+
 export const projects = [
   {
     title: 'Premier League Home Advantage Analysis',
@@ -46,19 +48,19 @@ export const featuredCertificates = [
     title: 'AWS Certified Cloud Practitioner',
     issuer: 'AWS',
     link: 'https://www.credly.com/earner/earned/badge/1e2ff596-3827-4b01-a1da-78a2b5941e82',
-    badge: '/certifications/badges/aws-cloud-practitioner.png',
+    badge: asset('/certifications/badges/aws-cloud-practitioner.png'),
   },
   {
     title: 'Microsoft Certified: Azure AI Fundamentals',
     issuer: 'Microsoft',
     link: 'https://learn.microsoft.com/en-us/users/mahirabdullah-0441/credentials/35250a125013efb2',
-    badge: '/certifications/badges/azure-ai-fundamentals.svg',
+    badge: asset('/certifications/badges/azure-ai-fundamentals.svg'),
   },
   {
     title: 'AWS Certified AI Practitioner',
     issuer: 'AWS',
     link: 'https://www.credly.com/badges/5950aa59-bc5e-4f28-8747-803f5a9087e3/public_url',
-    badge: '/certifications/badges/aws-ai-practitioner.png',
+    badge: asset('/certifications/badges/aws-ai-practitioner.png'),
   },
 ];
 
@@ -66,50 +68,50 @@ export const certificates = [
   {
     title: 'Extract, Transform and Load Data in Power BI',
     issuer: 'Microsoft',
-    icon: '/certifications/icons/microsoft.jpeg',
+    icon: asset('/certifications/icons/microsoft.jpeg'),
     link: 'https://www.coursera.org/account/accomplishments/verify/NK459FPTGKDU',
   },
   {
     title: 'ETL and Data Pipelines with Shell, Airflow and Kafka',
     issuer: 'IBM',
-    icon: '/certifications/icons/ibm.jpeg',
+    icon: asset('/certifications/icons/ibm.jpeg'),
     link: 'https://www.coursera.org/account/accomplishments/verify/1D4WT40S6SQL',
   },
   {
     title: 'Mastering Data Analysis with Pandas',
     issuer: 'Coursera',
-    icon: '/certifications/icons/coursera.jpeg',
+    icon: asset('/certifications/icons/coursera.jpeg'),
     link: 'https://www.coursera.org/account/accomplishments/verify/I5OAEITXI2UH',
   },
   {
     title: 'Python Data Analysis',
     issuer: 'LinkedIn Learning',
-    icon: '/certifications/icons/linkedin.jpeg',
+    icon: asset('/certifications/icons/linkedin.jpeg'),
     link: 'https://www.linkedin.com/learning/certificates/6d48efd78b9a49d46dc0fba2f13e4a28f53e8176819cd29911da2a3d1b6a0acd?accountId=70198226&u=70198226&success=true&authUUID=pFtZNxMKSmOyHaLh82dA8Q%3D%3D',
   },
   {
     title: 'Introduction to Data Analytics',
     issuer: 'IBM',
-    icon: '/certifications/icons/ibm.jpeg',
+    icon: asset('/certifications/icons/ibm.jpeg'),
     link: 'https://www.coursera.org/account/accomplishments/verify/2B5NDR2UFPM6',
   },
   {
     title: 'Foundations: Data, Data, Everywhere',
     issuer: 'Google',
-    icon: '/certifications/icons/google.jpeg',
+    icon: asset('/certifications/icons/google.jpeg'),
     link: 'https://www.coursera.org/account/accomplishments/verify/4S17PLOKFWB5',
   },
 ];
 
 export const uniInvolvement = [
-  { title: 'Intramural Sports Staff', icon: '/uni/utd.png' },
-  { title: 'Comet Call Engagement Ambassador', icon: '/uni/utd.png' },
-  { title: 'Community Council', icon: '/uni/utd.png' },
-  { title: 'Freshman Mentor', icon: '/uni/utd.png' },
-  { title: 'Product@Dallas', icon: '/uni/product-at-dallas.png' },
-  { title: 'Financial Leadership Association', icon: '/uni/financial-leadership-association.jpeg' },
-  { title: 'Real Estate Club', icon: '/uni/real-estate-club.png' },
-  { title: 'Soccer Club', icon: '/uni/soccer-club.png' },
+  { title: 'Intramural Sports Staff', icon: asset('/uni/utd.png') },
+  { title: 'Comet Call Engagement Ambassador', icon: asset('/uni/utd.png') },
+  { title: 'Community Council', icon: asset('/uni/utd.png') },
+  { title: 'Freshman Mentor', icon: asset('/uni/utd.png') },
+  { title: 'Product@Dallas', icon: asset('/uni/product-at-dallas.png') },
+  { title: 'Financial Leadership Association', icon: asset('/uni/financial-leadership-association.jpeg') },
+  { title: 'Real Estate Club', icon: asset('/uni/real-estate-club.png') },
+  { title: 'Soccer Club', icon: asset('/uni/soccer-club.png') },
 ];
 
 export const skillGroups = [

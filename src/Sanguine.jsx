@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { animate, stagger } from 'animejs';
+import { asset } from './asset.js';
 
 // Imgur transcodes any animated gif to mp4 for the .mp4 direct link — that's
 // the version that actually plays. Fall back to the static image chain only
@@ -50,7 +51,7 @@ function SanguineMedia({ id, alt }) {
 function MacFrame({ id, alt }) {
   return (
     <div className="sanguine__macframe">
-      <img className="sanguine__macframe-bezel" src="/platforms/macframe.svg" alt="" aria-hidden="true" />
+      <img className="sanguine__macframe-bezel" src={asset('/platforms/macframe.svg')} alt="" aria-hidden="true" />
       <div className="sanguine__macframe-screen">
         <SanguineMedia id={id} alt={alt} />
       </div>
@@ -63,7 +64,7 @@ function VinylDisc({ img, size = 220 }) {
   return (
     <img
       className="sanguine__vinyl-img"
-      src={`/vinyl/${encodeURIComponent(img)}`}
+      src={asset(`/vinyl/${encodeURIComponent(img)}`)}
       width={size}
       height={size}
       alt=""
@@ -120,11 +121,11 @@ function VinylField({ active }) {
 }
 
 const PLATFORMS = [
-  { name: 'Windows', icon: '/platforms/windows.svg' },
-  { name: 'Mac', icon: '/platforms/mac.svg' },
-  { name: 'Linux', icon: '/platforms/linux.svg' },
-  { name: 'Android', icon: '/platforms/android.svg' },
-  { name: 'iOS', icon: '/platforms/ios.svg' },
+  { name: 'Windows', icon: asset('/platforms/windows.svg') },
+  { name: 'Mac', icon: asset('/platforms/mac.svg') },
+  { name: 'Linux', icon: asset('/platforms/linux.svg') },
+  { name: 'Android', icon: asset('/platforms/android.svg') },
+  { name: 'iOS', icon: asset('/platforms/ios.svg') },
 ];
 
 function PlatformRow() {
