@@ -235,6 +235,31 @@ html.has-cursor-dot * {
   filter: brightness(calc(1 - var(--hero-progress) * 0.35));
 }
 
+/* Desktop windows that are narrower/taller than a normal browser window
+   (e.g. Arc with its sidebar docked, ~1.3–1.5 aspect): keep the hero
+   full-screen like everywhere else, but bias the crop left so the girl
+   always stays fully in frame instead of getting cut along with the
+   right edge. The bird may get cropped out entirely here — that's an
+   accepted trade-off for keeping the hero full-bleed. Untouched outside
+   this band, so normal wide desktop windows and mobile portrait keep
+   the exact same treatment as before. */
+@media (min-width: 700px) and (max-aspect-ratio: 8/5) {
+  .hero__bg {
+    object-position: 28% top;
+  }
+}
+
+/* Normal wide desktop windows (Chrome etc., not the narrow-Arc band above):
+   the source video has a small baked-in black margin at the very bottom.
+   A slight extra zoom, cropped from the bottom only, hides it without
+   affecting the Arc-narrow band or mobile portrait. */
+@media (min-width: 700px) and (min-aspect-ratio: 8/5) {
+  .hero__bg {
+    object-position: center top;
+    transform: scale(calc((1 + var(--hero-progress) * 0.18) * 1.12));
+  }
+}
+
 .hero__scrim {
   position: absolute;
   inset: 0;
@@ -1041,10 +1066,284 @@ html.has-cursor-dot * {
 }
 
 /* Contact */
+.contact__grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 3rem;
+  row-gap: 1.25rem;
+  align-items: end;
+}
+
+.contact__grid .section__title {
+  grid-column: 1;
+  grid-row: 1;
+  margin-bottom: 0;
+}
+
+.contact__newsletter-title {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
 .contact__links {
+  grid-column: 1;
+  grid-row: 2;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  align-self: start;
+}
+
+.contact__grid #mlb2-44623520.ml-form-embedContainer {
+  grid-column: 2;
+  grid-row: 2;
+  width: 100% !important;
+}
+
+.contact__grid #mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper.embedForm {
+  max-width: 100%;
+}
+
+.contact__grid #mlb2-44623520.ml-form-embedContainer .ml-form-embedContent {
+  display: none;
+}
+
+.contact__grid #mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody {
+  padding: 0;
+}
+
+@media (min-width: 901px) {
+  .contact__grid #mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .contact__grid #mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent {
+    margin: 0;
+    flex: 1 1 220px;
+  }
+
+  .contact__grid #mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow {
+    margin: 0;
+  }
+
+  .contact__grid #mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit {
+    margin: 0;
+    float: none;
+    width: auto;
+    flex: 0 0 auto;
+  }
+
+  .contact__grid #mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
+    width: auto !important;
+    padding: 10px 24px !important;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 900px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__grid .section__title,
+  .contact__newsletter-title,
+  .contact__links,
+  .contact__grid #mlb2-44623520.ml-form-embedContainer {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .contact__grid .section__title {
+    order: 0;
+  }
+
+  .contact__links {
+    order: 1;
+  }
+
+  .contact__newsletter-title {
+    order: 2;
+    text-align: left;
+    text-align-last: auto;
+  }
+
+  .contact__grid #mlb2-44623520.ml-form-embedContainer {
+    order: 3;
+    width: 100% !important;
+  }
+}
+
+/* Newsletter (MailerLite embedded form) */
+#mlb2-44623520.ml-form-embedContainer {
+  box-sizing: border-box;
+  display: table;
+  margin: 0 0 2rem;
+  position: static;
+  width: 100% !important;
+}
+#mlb2-44623520.ml-form-embedContainer h4,
+#mlb2-44623520.ml-form-embedContainer p,
+#mlb2-44623520.ml-form-embedContainer span,
+#mlb2-44623520.ml-form-embedContainer button {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper {
+  background-color: #f6f6f6;
+  border-width: 0px;
+  border-color: transparent;
+  border-radius: 4px;
+  border-style: solid;
+  box-sizing: border-box;
+  display: inline-block !important;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper.embedForm {
+  max-width: 400px;
+  width: 100%;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-align-left {
+  text-align: left;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-align-center {
+  text-align: left;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody,
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody {
+  padding: 20px 20px 0 20px;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent,
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent {
+  text-align: left;
+  margin: 0 0 20px 0;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4,
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 {
+  color: #1d1d1f;
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  text-align: left;
+  word-break: break-word;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p,
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p {
+  color: #6b6b6b;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 0 10px 0;
+  text-align: left;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form {
+  margin: 0;
+  width: 100%;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent {
+  margin: 0 0 20px 0;
+  width: 100%;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow {
+  margin: 0 0 10px 0;
+  width: 100%;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item {
+  margin: 0;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input {
+  background-color: #ffffff !important;
+  color: #1d1d1f !important;
+  border-color: #d6d6d6;
+  border-radius: 24px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px !important;
+  line-height: 21px !important;
+  margin: 0;
+  padding: 10px 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit {
+  margin: 0 0 20px 0;
+  float: left;
+  width: 100%;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
+  background-color: #0071e3 !important;
+  border: none !important;
+  border-radius: 24px !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 21px !important;
+  height: auto;
+  padding: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.loading {
+  display: none;
+}
+#mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
+  background-color: #0058b3 !important;
+}
+.ml-form-embedSubmitLoad {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+.ml-form-embedSubmitLoad:after {
+  content: ' ';
+  display: block;
+  width: 11px;
+  height: 11px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  border-color: #ffffff #ffffff #ffffff transparent;
+  animation: ml-form-embedSubmitLoad 1.2s linear infinite;
+}
+@keyframes ml-form-embedSubmitLoad {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.ml-error input {
+  border-color: red !important;
+}
+@media only screen and (max-width: 400px) {
+  #mlb2-44623520.ml-form-embedContainer .ml-form-embedWrapper.embedForm {
+    width: 100% !important;
+  }
 }
 
 /* Footer */

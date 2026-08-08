@@ -114,6 +114,21 @@ function Nav() {
 
 function Hero() {
   const heroRef = useRef(null);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    // React can set the `muted` DOM property after the browser has already
+    // decided whether to honor `autoplay`, so mobile browsers sometimes
+    // silently leave the video paused. Force it explicitly and retry play()
+    // whenever it becomes possible (covers tab visibility changes too).
+    video.muted = true;
+    const tryPlay = () => video.play().catch(() => {});
+    tryPlay();
+    document.addEventListener('visibilitychange', tryPlay);
+    return () => document.removeEventListener('visibilitychange', tryPlay);
+  }, []);
 
   useEffect(() => {
     const el = heroRef.current;
@@ -143,15 +158,16 @@ function Hero() {
   return (
     <section className="hero" id="top" data-theme="dark" ref={heroRef}>
       <video
+        ref={videoRef}
         className="hero__bg"
         autoPlay
         muted
         loop
         playsInline
-        poster={`${asset('/video/hero-bg-poster.jpg')}?v=3`}
+        poster={`${asset('/video/hero-bg-poster.jpg')}?v=4`}
       >
-        <source src={`${asset('/video/hero-bg.mp4')}?v=3`} type="video/mp4" />
-        <source src={`${asset('/video/hero-bg.webm')}?v=3`} type="video/webm" />
+        <source src={`${asset('/video/hero-bg.mp4')}?v=4`} type="video/mp4" />
+        <source src={`${asset('/video/hero-bg.webm')}?v=4`} type="video/webm" />
       </video>
       <div className="hero__scrim" />
       <div className="hero__content">
@@ -333,20 +349,100 @@ function UniInvolvement() {
   );
 }
 
+function Newsletter() {
+  useEffect(() => {
+    window.ml_webform_success_44623520 = function () {
+      const $ = window.ml_jQuery || window.jQuery;
+      if (!$) return;
+      $('.ml-subscribe-form-44623520 .row-success').show();
+      $('.ml-subscribe-form-44623520 .row-form').hide();
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519';
+    script.async = true;
+    document.body.appendChild(script);
+
+    fetch('https://assets.mailerlite.com/jsonp/2563553/forms/195230173296067815/takel').catch(() => {});
+
+    return () => {
+      document.body.removeChild(script);
+      delete window.ml_webform_success_44623520;
+    };
+  }, []);
+
+  return (
+    <div id="mlb2-44623520" className="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-44623520">
+      <div className="ml-form-align-center">
+        <div className="ml-form-embedWrapper embedForm">
+          <div className="ml-form-embedBody ml-form-embedBodyDefault row-form">
+            <div className="ml-form-embedContent">
+              <h4>Get notified when Sanguine ships</h4>
+            </div>
+            <form
+              className="ml-block-form"
+              action="https://assets.mailerlite.com/jsonp/2563553/forms/195230173296067815/subscribe"
+              method="post"
+              target="_blank"
+            >
+              <div className="ml-form-formContent">
+                <div className="ml-form-fieldRow ml-last-item">
+                  <div className="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                    <input
+                      aria-label="email"
+                      aria-required="true"
+                      type="email"
+                      className="form-control"
+                      name="fields[email]"
+                      placeholder="Email"
+                      autoComplete="email"
+                    />
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="ml-submit" value="1" />
+              <div className="ml-form-embedSubmit">
+                <button type="submit" className="primary">
+                  Subscribe
+                </button>
+                <button disabled style={{ display: 'none' }} type="button" className="loading">
+                  <div className="ml-form-embedSubmitLoad" />
+                  <span className="sr-only">Loading...</span>
+                </button>
+              </div>
+              <input type="hidden" name="anticsrf" value="true" />
+            </form>
+          </div>
+          <div className="ml-form-successBody row-success" style={{ display: 'none' }}>
+            <div className="ml-form-successContent">
+              <h4>Thank you!</h4>
+              <p>You have successfully joined our subscriber list.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Contact() {
   return (
     <section className="section section--alt" id="contact">
-      <h2 className="section__title">Contact</h2>
-      <div className="contact__links">
-        <a className="btn btn--primary" href={contacts.linkedin} target="_blank" rel="noreferrer">
-          LinkedIn
-        </a>
-        <a className="btn btn--ghost" href={contacts.github} target="_blank" rel="noreferrer">
-          GitHub
-        </a>
-        <a className="btn btn--ghost" href={`mailto:${contacts.email}`}>
-          Email
-        </a>
+      <div className="contact__grid">
+        <h2 className="section__title">Contact</h2>
+        <p className="contact__newsletter-title">Get notified when Sanguine ships</p>
+        <div className="contact__links">
+          <a className="btn btn--primary" href={contacts.linkedin} target="_blank" rel="noreferrer">
+            LinkedIn
+          </a>
+          <a className="btn btn--ghost" href={contacts.github} target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          <a className="btn btn--ghost" href={`mailto:${contacts.email}`}>
+            Email
+          </a>
+        </div>
+        <Newsletter />
       </div>
     </section>
   );
