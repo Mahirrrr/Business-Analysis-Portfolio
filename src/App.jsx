@@ -119,10 +119,13 @@ function Hero() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    // React can set the `muted` DOM property after the browser has already
-    // decided whether to honor `autoplay`, so mobile browsers sometimes
-    // silently leave the video paused. Force it explicitly and retry play()
-    // whenever it becomes possible (covers tab visibility changes too).
+    // React sets `muted` as a JS property but never reflects it as a real
+    // HTML attribute. Safari's autoplay policy checks the attribute itself
+    // (not just the property), so without this it silently refuses to
+    // autoplay on iOS even though video.muted is already true.
+    video.setAttribute('muted', '');
+    video.setAttribute('autoplay', '');
+    video.setAttribute('playsinline', '');
     video.muted = true;
     const tryPlay = () => video.play().catch(() => {});
     tryPlay();
