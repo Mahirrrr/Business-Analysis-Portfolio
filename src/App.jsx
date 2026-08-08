@@ -115,6 +115,7 @@ function Nav() {
 function Hero() {
   const heroRef = useRef(null);
   const videoRef = useRef(null);
+  const [videoPlaying, setVideoPlaying] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -127,10 +128,19 @@ function Hero() {
     video.setAttribute('autoplay', '');
     video.setAttribute('playsinline', '');
     video.muted = true;
+    // Keep the video fully transparent (a plain poster <img> sits behind it)
+    // until playback genuinely starts. If autoplay gets blocked (e.g. iOS
+    // Low Power Mode), this avoids ever painting Safari's native
+    // tap-to-play button over the hero — it just stays a static image.
+    const onPlaying = () => setVideoPlaying(true);
+    video.addEventListener('playing', onPlaying);
     const tryPlay = () => video.play().catch(() => {});
     tryPlay();
     document.addEventListener('visibilitychange', tryPlay);
-    return () => document.removeEventListener('visibilitychange', tryPlay);
+    return () => {
+      document.removeEventListener('visibilitychange', tryPlay);
+      video.removeEventListener('playing', onPlaying);
+    };
   }, []);
 
   useEffect(() => {
@@ -160,9 +170,17 @@ function Hero() {
 
   return (
     <section className="hero" id="top" data-theme="dark" ref={heroRef}>
+      <img
+        className="hero__bg hero__bg-poster"
+        style={{ opacity: videoPlaying ? 0 : 1 }}
+        src={`${asset('/video/hero-bg-poster.jpg')}?v=4`}
+        alt=""
+        aria-hidden="true"
+      />
       <video
         ref={videoRef}
         className="hero__bg"
+        style={{ opacity: videoPlaying ? 1 : 0 }}
         autoPlay
         muted
         loop
