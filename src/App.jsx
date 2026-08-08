@@ -2,11 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { projects, studyProjects, certificates, featuredCertificates, uniInvolvement, skillGroups, contacts } from './data.js';
 import { asset } from './asset.js';
 import Cursor from './Cursor.jsx';
-import Shuffle from './Shuffle.jsx';
 import SanguineShowcase from './Sanguine.jsx';
 
 const NAV_LINKS = [
-  ['Projects', '#projects'],
+  ['Projects', '#sanguine'],
   ['Certifications', '#certificates'],
   ['Uni Involvement', '#uni-involvement'],
 ];
@@ -14,7 +13,7 @@ const NAV_LINKS = [
 function Nav() {
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
-  const [activeHref, setActiveHref] = useState(NAV_LINKS[0][1]);
+  const [activeHref, setActiveHref] = useState(null);
 
   useEffect(() => {
     const sections = [...document.querySelectorAll('main > section')];
@@ -57,13 +56,13 @@ function Nav() {
 
     const updateActive = () => {
       raf = 0;
-      let current = sections[0];
+      let current = null;
       for (const section of sections) {
         if (section.getBoundingClientRect().top <= NAV_OFFSET) {
           current = section;
         }
       }
-      setActiveHref(`#${current.id}`);
+      setActiveHref(current ? `#${current.id}` : null);
     };
 
     const onScroll = () => {
@@ -149,10 +148,10 @@ function Hero() {
         muted
         loop
         playsInline
-        poster={asset('/video/hero-bg-poster.jpg')}
+        poster={`${asset('/video/hero-bg-poster.jpg')}?v=3`}
       >
-        <source src={asset('/video/hero-bg.mp4')} type="video/mp4" />
-        <source src={asset('/video/hero-bg.webm')} type="video/webm" />
+        <source src={`${asset('/video/hero-bg.mp4')}?v=3`} type="video/mp4" />
+        <source src={`${asset('/video/hero-bg.webm')}?v=3`} type="video/webm" />
       </video>
       <div className="hero__scrim" />
       <div className="hero__content">
@@ -161,30 +160,10 @@ function Hero() {
         </p>
         <h1 className="hero__name">
           <span className="hero__name-line" data-glow="MAHIR">
-            <Shuffle
-              text="MAHIR"
-              tag="span"
-              shuffleDirection="right"
-              duration={0.4}
-              shuffleTimes={2}
-              animationMode="evenodd"
-              stagger={0.035}
-              threshold={0.2}
-              triggerOnce
-            />
+            MAHIR
           </span>
           <span className="hero__name-line" data-glow="ABDULLAH">
-            <Shuffle
-              text="ABDULLAH"
-              tag="span"
-              shuffleDirection="right"
-              duration={0.4}
-              shuffleTimes={2}
-              animationMode="evenodd"
-              stagger={0.035}
-              threshold={0.2}
-              triggerOnce
-            />
+            ABDULLAH
           </span>
         </h1>
         <p className="hero__sub" data-glow="I turn messy data into stories worth telling.">
@@ -201,7 +180,7 @@ function About() {
       <h2 className="section__title">About Me</h2>
       <p className="about__text">
         Hey! My name is Mahir, and I am a Business Analytics &amp; Artificial Intelligence
-        sophomore based in Dallas. I am building toward a career in analytics and this site is
+        junior based in Dallas, with a minor in audio production. I am building toward a career in analytics and this site is
         where I showcase the projects I have been working on. I enjoy using data to explore
         things I am genuinely interested in, whether that is Premier League football, my own
         music listening habits, or whatever catches my attention next. Each project reflects a
@@ -243,8 +222,8 @@ function ProjectCard({ project }) {
       <div className="card__footer">
         <span className="card__tools">{project.tools.join(' · ')}</span>
         {project.repo && (
-          <a className="link" href={project.repo} target="_blank" rel="noreferrer">
-            View Repository →
+          <a className="link cert-view" href={project.repo} target="_blank" rel="noreferrer">
+            View Repository <span className="cert-view__arrow">→</span>
           </a>
         )}
       </div>

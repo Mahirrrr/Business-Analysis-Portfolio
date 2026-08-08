@@ -694,6 +694,7 @@ html.has-cursor-dot * {
     width: 100%;
     max-width: 100%;
     height: 60vw;
+    overflow: hidden;
   }
   .sanguine__textblock {
     position: relative;
