@@ -233,6 +233,17 @@ html.has-cursor-dot * {
   object-fit: cover;
   transform: scale(calc(1 + var(--hero-progress) * 0.18));
   filter: brightness(calc(1 - var(--hero-progress) * 0.35));
+  pointer-events: none;
+}
+
+/* iOS Safari overlays a giant tap-to-play button on the poster frame
+   whenever autoplay is blocked (e.g. Low Power Mode). Hide it so a
+   blocked autoplay just falls back to the static poster looking like
+   a normal background image instead of a broken video player. */
+.hero__bg::-webkit-media-controls,
+.hero__bg::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
 }
 
 /* Desktop windows that are narrower/taller than a normal browser window
