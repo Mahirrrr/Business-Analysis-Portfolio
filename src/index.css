@@ -1137,36 +1137,69 @@ html.has-cursor-dot * {
   color: var(--ink);
 }
 
-.section__title--sub {
-  margin-top: 3.5rem;
-}
-
 .section__note {
   margin-bottom: 1.5rem;
   color: var(--mid-gray);
   font-size: 1.05rem;
 }
 
+/* Intro text on the left, skills on the right; stacks below 900px. */
+.about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: 3rem;
+  align-items: start;
+}
+
 .about__text {
   max-width: 760px;
   font-size: 1.15rem;
-  margin-bottom: 2.5rem;
   color: var(--deep-gray);
 }
 
-.skills {
+@media (max-width: 900px) {
+  .about__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+/* One compact row per skill group: label on the left, tags on the right. */
+.skills__group {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.65rem 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.skills__group:last-child {
+  border-bottom: 1px solid var(--hairline);
 }
 
 .skills__group h3 {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
   color: var(--mid-gray);
   text-transform: uppercase;
   letter-spacing: 0.03em;
+}
+
+.skills .tags {
+  gap: 0.35rem;
+}
+
+.skills .tag {
+  padding: 0.2rem 0.7rem;
+  font-size: 0.78rem;
+}
+
+@media (max-width: 720px) {
+  .skills__group {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.55rem;
+  }
 }
 
 .tags {
@@ -1209,13 +1242,7 @@ html.has-cursor-dot * {
   border: 1px solid rgba(0, 0, 0, 0.8);
 }
 
-/* Cards / grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-
+/* Cards */
 .card {
   background: var(--paper);
   border-radius: var(--radius-card);

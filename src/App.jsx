@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { projects, projectCategories, studyProjects, certificates, featuredCertificates, uniInvolvement, skillGroups, contacts } from './data.js';
+import { projects, projectCategories, certificates, featuredCertificates, uniInvolvement, skillGroups, contacts } from './data.js';
 import { asset } from './asset.js';
 import Cursor from './Cursor.jsx';
 import SanguineShowcase from './Sanguine.jsx';
@@ -216,28 +216,30 @@ function About() {
   return (
     <section className="section" id="about">
       <h2 className="section__title">About Me</h2>
-      <p className="about__text">
-        Hey! My name is Mahir, and I am a Business Analytics &amp; Artificial Intelligence
-        junior based in Dallas, with a minor in audio production. I am building toward a career in analytics and this site is
-        where I showcase the projects I have been working on. I enjoy using data to explore
-        things I am genuinely interested in, whether that is Premier League football, my own
-        music listening habits, or whatever catches my attention next. Each project reflects a
-        different tool or technique I have been learning, from SQL and BigQuery to Python and
-        Tableau.
-      </p>
-      <div className="skills">
-        {skillGroups.map((group) => (
-          <div className="skills__group" key={group.label}>
-            <h3>{group.label}</h3>
-            <div className="tags">
-              {group.items.map((item) => (
-                <span className="tag" key={item}>
-                  {item}
-                </span>
-              ))}
+      <div className="about__grid">
+        <p className="about__text">
+          Hey! My name is Mahir, and I am a Business Analytics &amp; Artificial Intelligence
+          junior based in Dallas, with a minor in audio production. I am building toward a career in analytics and this site is
+          where I showcase the projects I have been working on. I enjoy using data to explore
+          things I am genuinely interested in, whether that is Premier League football, my own
+          music listening habits, or whatever catches my attention next. Each project reflects a
+          different tool or technique I have been learning, from SQL and BigQuery to Python and
+          Tableau.
+        </p>
+        <div className="skills">
+          {skillGroups.map((group) => (
+            <div className="skills__group" key={group.label}>
+              <h3>{group.label}</h3>
+              <div className="tags">
+                {group.items.map((item) => (
+                  <span className="tag" key={item}>
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -343,26 +345,6 @@ function SanguineStack({ items, matches }) {
   );
 }
 
-function StudyCard({ item }) {
-  return (
-    <article className="card card--study">
-      <div className="card__head">
-        <h3>
-          {item.course}: {item.title}
-        </h3>
-      </div>
-      <p>{item.description}</p>
-      <div className="tags">
-        {item.skills.map((s) => (
-          <span className="tag" key={s}>
-            {s}
-          </span>
-        ))}
-      </div>
-    </article>
-  );
-}
-
 const FILTERS = [{ id: 'all', label: 'All' }, ...projectCategories];
 
 function Projects() {
@@ -413,13 +395,6 @@ function Projects() {
           </div>
         </>
       )}
-
-      <h2 className="section__title section__title--sub">Study Projects</h2>
-      <div className="grid">
-        {studyProjects.map((s) => (
-          <StudyCard item={s} key={s.course} />
-        ))}
-      </div>
     </section>
   );
 }

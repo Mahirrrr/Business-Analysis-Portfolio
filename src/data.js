@@ -179,30 +179,6 @@ export const projects = [
   },
 ];
 
-export const studyProjects = [
-  {
-    course: 'OPRE 3360',
-    title: 'Operations Management Analytics',
-    description:
-      'Coursework and projects covering operations management concepts through a quantitative lens. Topics include process analysis, forecasting, inventory management, and optimization using Excel and analytical tools.',
-    skills: ['Excel', 'Process Analysis', 'Forecasting', 'Optimization'],
-  },
-  {
-    course: 'ITSS 3311',
-    title: 'Introduction to Data Management',
-    description:
-      'Coursework focused on database fundamentals, SQL querying, data modeling, and relational database design. Projects involved writing SQL queries to extract, filter, and aggregate data from relational databases.',
-    skills: ['SQL', 'Database Design', 'ER Diagrams', 'Data Modeling'],
-  },
-  {
-    course: 'BUAN 4373',
-    title: 'Predictive Analytics',
-    description:
-      'Coursework covering predictive modeling techniques including regression analysis, classification, clustering, and machine learning fundamentals. Projects involved building models in Python and R to make data-driven predictions.',
-    skills: ['Python', 'R', 'Regression', 'Classification', 'Clustering', 'ML'],
-  },
-];
-
 export const featuredCertificates = [
   {
     title: 'AWS Certified Cloud Practitioner',
