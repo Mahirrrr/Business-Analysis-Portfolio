@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { animate, stagger } from 'animejs';
 import { asset } from './asset.js';
+import { BillCard, Pipeline } from './BillSnag.jsx';
 
 // Imgur transcodes any animated gif to mp4 for the .mp4 direct link — that's
 // the version that actually plays. Fall back to the static image chain only
@@ -162,6 +163,29 @@ function PlatformRow() {
 
 const PAGES = [
   {
+    eyebrow: 'BILLSNAG · 01',
+    banner: 'Incoming project: BillSnag',
+    heading: 'Your hospital bill is probably wrong.',
+    highlight: 'probably wrong.',
+    visual: 'bill',
+    cream: true,
+    body: [
+      'BillSnag reads a hospital bill line by line against your insurance statement (EOB) and flags the charges you may not owe. If it finds money, a real person on our team calls the billing office.',
+      "I co-founded it and built the web app in Next.js, TypeScript, and Supabase. It's live now in an invite-only test in Los Angeles and Dallas–Fort Worth.",
+    ],
+    link: { href: 'https://billsnag.com', label: 'Visit billsnag.com' },
+  },
+  {
+    eyebrow: 'BILLSNAG · 02',
+    heading: 'Three steps. You only do the first.',
+    visual: 'pipeline',
+    cream: true,
+    body: [
+      "The part I built sits behind step 2. Claude Haiku copies each printed line into a validated schema and rejects uploads it can't read. Then a TypeScript rules engine runs 8 billing-error checks: EOB mismatches, charges billed before insurance paid, duplicate and unbundled CPT codes, facility fees, preventive care billed to you, provider-fault denials, and follow-up visits billed inside a procedure's global period.",
+      'All 8 checks are covered by 19 unit tests.',
+    ],
+  },
+  {
     eyebrow: 'SANGUINE · 01',
     banner: 'Incoming project: Sanguine',
     heading: 'A music app built for the future.',
@@ -176,35 +200,6 @@ const PAGES = [
   },
   {
     eyebrow: 'SANGUINE · 02',
-    heading: 'Every album, as a record.',
-    image: { id: 'J1CrNSN', alt: 'Sanguine customisability' },
-    body: [
-      "Sanguine is moving toward a full vinyl aesthetic that shows the real pressing of the album you're playing, letting you shape the whole app around how you like to look at music.",
-    ],
-    vinyl: true,
-  },
-  {
-    eyebrow: 'SANGUINE · 03',
-    heading: 'Everything you already use, in one place.',
-    image: { id: 'QtS69ps', alt: 'Sanguine integrations' },
-    mockup: true,
-    features: [
-      {
-        title: 'Last.fm',
-        text: 'Connect your Last.fm account and your scrobbles sync straight in, so you can see what your friends are listening to, right inside Sanguine.',
-      },
-      {
-        title: 'Bandcamp, then SoundCloud',
-        text: 'Bandcamp streaming is already built in, with SoundCloud integration planned next.',
-      },
-      {
-        title: 'Your own media server',
-        text: 'Log into your own private server, Plex or Jellyfin, and stream your personal library alongside everything else.',
-      },
-    ],
-  },
-  {
-    eyebrow: 'SANGUINE · 04',
     heading: 'Every feature, rebuilt from scratch.',
     features: [
       {
@@ -290,7 +285,7 @@ export default function SanguineShowcase() {
   return (
     <section
       className="sanguine"
-      id="sanguine"
+      id="incoming"
       data-theme="dark"
       ref={wrapRef}
       style={{ height: `${count * 95}vh` }}
@@ -298,13 +293,24 @@ export default function SanguineShowcase() {
       <div className="sanguine__pin">
         <div className="sanguine__pages">
           {PAGES.map((p, i) => (
-            <div className={`sanguine__page${i === active ? ' is-active' : ''}`} key={p.heading}>
-              {p.vinyl ? (
+            <div
+              className={`sanguine__page${p.cream ? ' sanguine__page--cream' : ''}${i === active ? ' is-active' : ''}`}
+              key={p.heading}
+            >
+              {p.visual ? (
+                <div className="sanguine__mediaframe sanguine__mediaframe--bare">
+                  {p.visual === 'bill' ? (
+                    <BillCard />
+                  ) : (
+                    <Pipeline progress={Math.min(1, Math.max(0, progress * count - i))} />
+                  )}
+                </div>
+              ) : p.vinyl ? (
                 <>
                   <VinylField active={i === active} />
                   {p.image && (
                     <div className="sanguine__mediaframe sanguine__mediaframe--vinyl">
-                      <SanguineMedia id={p.image.id} alt={p.image.alt} />
+                      <SanguineMedia {...p.image} />
                     </div>
                   )}
                 </>
@@ -312,11 +318,11 @@ export default function SanguineShowcase() {
                 p.image &&
                 (p.mockup ? (
                   <div className="sanguine__mediaframe sanguine__mediaframe--mockup">
-                    <MacFrame id={p.image.id} alt={p.image.alt} />
+                    <MacFrame {...p.image} />
                   </div>
                 ) : (
                   <div className="sanguine__mediaframe">
-                    <SanguineMedia id={p.image.id} alt={p.image.alt} />
+                    <SanguineMedia {...p.image} />
                   </div>
                 ))
               )}
@@ -327,7 +333,16 @@ export default function SanguineShowcase() {
                   {p.eyebrow}
                   {p.credit && <span className="sanguine__credit"> · {p.credit}</span>}
                 </p>
-                <h2 className="sanguine__heading">{p.heading}</h2>
+                <h2 className="sanguine__heading">
+                  {p.highlight ? (
+                    <>
+                      {p.heading.replace(p.highlight, '')}
+                      <mark className="sanguine__mark">{p.highlight}</mark>
+                    </>
+                  ) : (
+                    p.heading
+                  )}
+                </h2>
 
                 {p.body && (
                   <div className="sanguine__body">
@@ -360,6 +375,12 @@ export default function SanguineShowcase() {
                       ))}
                     </ul>
                   ))}
+
+                {p.link && (
+                  <a className="cert-view sanguine__link" href={p.link.href} target="_blank" rel="noreferrer">
+                    {p.link.label} <span className="cert-view__arrow">→</span>
+                  </a>
+                )}
               </div>
             </div>
           ))}

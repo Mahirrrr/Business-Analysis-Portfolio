@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { projects, studyProjects, certificates, featuredCertificates, uniInvolvement, skillGroups, contacts } from './data.js';
+import { projects, projectCategories, studyProjects, certificates, featuredCertificates, uniInvolvement, skillGroups, contacts } from './data.js';
 import { asset } from './asset.js';
 import Cursor from './Cursor.jsx';
 import SanguineShowcase from './Sanguine.jsx';
 
 const NAV_LINKS = [
-  ['Projects', '#sanguine'],
+  ['Projects', '#projects'],
+  ['Incoming', '#incoming'],
   ['Certifications', '#certificates'],
   ['Uni Involvement', '#uni-involvement'],
 ];
@@ -242,12 +243,13 @@ function About() {
   );
 }
 
-function ProjectCard({ project }) {
+const categoryLabel = Object.fromEntries(projectCategories.map((c) => [c.id, c.label]));
+
+// Full write-up behind every project view. Private repos offer a walkthrough instead of a link.
+function ProjectDetails({ project }) {
+  const walkthrough = `mailto:${contacts.email}?subject=${encodeURIComponent(`Walkthrough: ${project.title}`)}`;
   return (
-    <article className="card">
-      <div className="card__head">
-        <h3>{project.title}</h3>
-      </div>
+    <div className="project-details">
       <p>{project.description}</p>
       <div className="tags">
         {project.skills.map((s) => (
@@ -258,11 +260,84 @@ function ProjectCard({ project }) {
       </div>
       <div className="card__footer">
         <span className="card__tools">{project.tools.join(' · ')}</span>
-        {project.repo && (
+        {project.repo ? (
           <a className="link cert-view" href={project.repo} target="_blank" rel="noreferrer">
             View Repository <span className="cert-view__arrow">→</span>
           </a>
+        ) : (
+          <a className="link cert-view" href={walkthrough}>
+            Private repo · ask for a walkthrough <span className="cert-view__arrow">→</span>
+          </a>
         )}
+      </div>
+    </div>
+  );
+}
+
+function Metric({ metric }) {
+  return (
+    <p className="metric">
+      <span className="metric__value">{metric.value}</span>
+      <span className="metric__label">{metric.label}</span>
+    </p>
+  );
+}
+
+function FeaturedCard({ project }) {
+  return (
+    <article className="card featured-card">
+      <span className="tag tag--category">{categoryLabel[project.category]}</span>
+      <Metric metric={project.metric} />
+      <h3>{project.title}</h3>
+      <details className="disclosure">
+        <summary>Read more</summary>
+        <ProjectDetails project={project} />
+      </details>
+    </article>
+  );
+}
+
+function IndexRow({ project }) {
+  return (
+    <details className="index-row">
+      <summary>
+        <span className="index-row__title">{project.title}</span>
+        <span className="index-row__metric">
+          <strong>{project.metric.value}</strong> {project.metric.label}
+        </span>
+        <span className="tag">{categoryLabel[project.category]}</span>
+      </summary>
+      <ProjectDetails project={project} />
+    </details>
+  );
+}
+
+// Remounted (via key) whenever the filter changes, so it opens on the first matching project.
+function SanguineStack({ items, matches }) {
+  const [selected, setSelected] = useState(() => items.find(matches) ?? items[0]);
+  return (
+    <article className="card stack">
+      <div className="stack__head">
+        <h3>The Sanguine data stack</h3>
+        <p>{items.length} projects on one real app&apos;s data: 964K artists and 35K pipeline jobs.</p>
+      </div>
+      <div className="stack__nodes">
+        {items.map((p) => (
+          <button
+            type="button"
+            key={p.title}
+            className={`stack__node${p === selected ? ' is-active' : ''}${matches(p) ? '' : ' is-dimmed'}`}
+            aria-pressed={p === selected}
+            onClick={() => setSelected(p)}
+          >
+            {p.node}
+          </button>
+        ))}
+      </div>
+      <div className="stack__detail">
+        <h4>{selected.title}</h4>
+        <Metric metric={selected.metric} />
+        <ProjectDetails project={selected} />
       </div>
     </article>
   );
@@ -288,15 +363,56 @@ function StudyCard({ item }) {
   );
 }
 
+const FILTERS = [{ id: 'all', label: 'All' }, ...projectCategories];
+
 function Projects() {
+  const [category, setCategory] = useState('all');
+  const matches = (p) => category === 'all' || p.category === category;
+  const standalone = projects.filter((p) => !p.series && matches(p));
+  const featured = standalone.filter((p) => p.featured);
+  const rest = standalone.filter((p) => !p.featured);
+  const sanguine = projects.filter((p) => p.series === 'sanguine');
+
   return (
     <section className="section section--alt" id="projects">
       <h2 className="section__title">All Projects</h2>
-      <div className="grid">
-        {projects.map((p) => (
-          <ProjectCard project={p} key={p.title} />
+      <div className="filters">
+        {FILTERS.map((f) => (
+          <button
+            type="button"
+            key={f.id}
+            className={`filter${category === f.id ? ' is-active' : ''}`}
+            aria-pressed={category === f.id}
+            onClick={() => setCategory(f.id)}
+          >
+            {f.label}
+            <span className="filter__count">
+              {f.id === 'all' ? projects.length : projects.filter((p) => p.category === f.id).length}
+            </span>
+          </button>
         ))}
       </div>
+
+      {featured.length > 0 && (
+        <div className="featured">
+          {featured.map((p) => (
+            <FeaturedCard project={p} key={p.title} />
+          ))}
+        </div>
+      )}
+
+      <SanguineStack key={category} items={sanguine} matches={matches} />
+
+      {rest.length > 0 && (
+        <>
+          <h3 className="projects__label">More projects</h3>
+          <div className="card index">
+            {rest.map((p) => (
+              <IndexRow project={p} key={p.title} />
+            ))}
+          </div>
+        </>
+      )}
 
       <h2 className="section__title section__title--sub">Study Projects</h2>
       <div className="grid">
@@ -477,8 +593,8 @@ export default function App() {
       <main>
         <Hero />
         <About />
-        <SanguineShowcase />
         <Projects />
+        <SanguineShowcase />
         <Certificates />
         <UniInvolvement />
         <Contact />
